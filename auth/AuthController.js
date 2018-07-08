@@ -1,43 +1,41 @@
-var express = require('express');
-var router = express.Router();
-var bodyParser = require('body-parser');
-
-router.use(bodyParser.urlencoded({ extended: true }));
+const express = require('express');
+const router = express.Router();
+const bodyParser = require('body-parser');
+router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
-var User = require('./user');
+const User = require('../user/User');
 
-var jwt = require('jsonwebtoken');
-var bcrypt = require('bcryptjs');
-var config = require('../config');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const config = require('../config');  //change it to a more secure way
 
 //REGISTER ENDPOINT
 router.post('/register', function(req, res) {
 
-  var hashedPassword = bcrypt.hashSync(req.body.password, 8);
+  let hashedPassword = bcrypt.hashSync(req.body.password, 8);
 
   User.create({
     name : req.body.name,
     password : hashedPassword
-    //pidor : req.body.pidor
   },
   function (err, user) {
     if (err) return res.status(500).send("There was a problem registering the user.");
-    //create a jsonwebtoken
-    var token = jwt.sign({ id: user.id }, config.secret, {
-      expiresIn: 43200 //expires in 12 hours
+    // create a token
+    let token = jwt.sign({ id: user._id }, config.secret, {
+      expiresIn: 43200 // expires in 12 hours
     });
-
-    res.status(200).send({ auth: true, token: token });
+    res.status(200).send({ auth: true, token: token, pidor: "Timur" });
   });
 });
 
 //GETS USER ID BASED ON TOKEN
-router.post('/me', function(req, res) {
-  var token = req.headers['x-access-token'];
-  if (!token) return res.status(401).send({auth: false, message: "No token provided"});
+router.get('/me', function(req, res) {
+  let token = req.headers['x-access-token'];
+  if (!token) return res.status(401).send({ auth: false, message: 'No token provided.' });
 
-  jwt.verify(token, config.secret, function(arr, decoded) {
-    if (err) return res.status(500).send({auth: false, message: "Failed to authenticate token."});
+  jwt.verify(token, config.secret, function(err, decoded) {
+    if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
+    res.status(200).send(decoded);
   });
 });
 
