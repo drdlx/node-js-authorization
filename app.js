@@ -3,6 +3,7 @@ const app = express();
 const db = require('./db');
 global.__root = __dirname + '/';
 
+//API status
 app.get('/api', function(req, res){
     res.status(200).send('API works!');
 });
