@@ -1,2 +1,2 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/users');
+mongoose.connect(process.env.DB_CONN);
