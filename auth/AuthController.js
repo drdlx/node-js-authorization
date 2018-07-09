@@ -19,12 +19,12 @@ router.post('/register', function(req, res) {
     password : hashedPassword
   },
   function (err, user) {
-    if (err) return res.status(500).send("There was a problem registering the user.");
+    if (err) return res.status(500).send('There was a problem registering the user.');
     // create a token
     let token = jwt.sign({ id: user._id }, config.secret, {
       expiresIn: 43200 // expires in 12 hours
     });
-    res.status(200).send({ auth: true, token: token, pidor: "Timur" });
+    res.status(200).send({ auth: true, token: token, pidor: 'Timur' });
   });
 });
 
@@ -35,8 +35,38 @@ router.get('/me', function(req, res) {
 
   jwt.verify(token, config.secret, function(err, decoded) {
     if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
-    res.status(200).send(decoded);
+    User.findById(
+      decoded.id,
+      { password: 0 },
+      function(err, user) {
+        if (err) return res.status(500).send('There was a problem finding the user.');
+        if (!user) return res.status(404).send('No user found.');
+        //res.status(200).send(decoded);
+        next(user);
+      });
   });
+});
+
+//LOGIN function
+router.get('/login', function (req, res) {
+  User.findOne({login: req.body.login}, function(err, user){
+    if(err) return res.status(500).send('Error on the server side.');
+    if(!user) return res.status(404).send('No user found.');
+
+    let passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
+    if (!passwordIsValid) return res.status(401).send({ auth: false, token: null });
+
+    let token = jwt.sign({ id: user.id, }, config.secret, {
+      expiresIn: 43200 //expires in 12 hours
+    });
+
+    res.status(200).send({ auth: true, token: token});
+  });
+});
+
+//LOGOUT function
+router.get('/logout', function(req, res) {
+  res.status(200).send({ auth: false, token: null });
 });
 
 module.exports = router;

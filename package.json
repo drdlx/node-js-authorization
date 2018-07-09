@@ -1,7 +1,7 @@
 {
-  "name": "nodejs-creating-restful-apis",
+  "name": "node-js-authorization",
   "version": "1.0.0",
-  "description": "![RESTful API design with Node.js](https://cdn-images-1.medium.com/max/2000/1*jjYC9tuf4C3HkHCP5PcKTA.jpeg \"RESTful API design with Node.js\")",
+  "description": "something weird",
   "main": "app.js",
   "scripts": {
     "start": "node server.js",
