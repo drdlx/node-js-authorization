@@ -41,8 +41,8 @@ router.get('/me', VerifyToken, function(req, res, next) {
 });
 
 //LOGIN function
-router.get('/login', function (req, res) {
-  User.findOne({login: req.body.login}, function(err, user){
+router.post('/login', function (req, res) {
+  User.findOne({ login: req.body.login }, function(err, user) {
     if(err) return res.status(500).send('Error on the server side.');
     if(!user) return res.status(404).send('No user found.');
 
@@ -53,7 +53,7 @@ router.get('/login', function (req, res) {
       expiresIn: 43200 //expires in 12 hours
     });
 
-    res.status(200).send({ auth: true, token: token});
+    res.status(200).send({ auth: true, token: token, pidor: "Timur" });
   });
 });
 
