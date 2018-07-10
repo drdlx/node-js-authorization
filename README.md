@@ -12,6 +12,7 @@ A simple app that returns token based on Mongo-DB with users
 
 # Register
 ```/api/register``` registers user in database
+
 **request structure**
 | Field | Description |
 | ------ | ------ |
@@ -20,6 +21,7 @@ A simple app that returns token based on Mongo-DB with users
 
 # Autorization
 ```/api/auth/me```checks user's token
+
 **request structure**
 | Field | Description |
 | ------ | ------ |
@@ -27,6 +29,7 @@ A simple app that returns token based on Mongo-DB with users
 
 #Logging in
 ```/api/auth/login``` logins via username and password returns token to user
+
 **request structure**
 | Field | Description |
 | ------ | ------ |
