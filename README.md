@@ -36,4 +36,5 @@ A simple app that returns token based on Mongo-DB with users
 
 # Logging out
 ```/api/auth/logout``` destroys user's token
+
 Nothing else is required in this request
