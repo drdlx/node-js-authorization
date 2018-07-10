@@ -12,6 +12,7 @@ const bcrypt = require('bcryptjs');
 const VerifyToken = require('./VerifyToken');
 
 //REGISTER ENDPOINT
+//not sure if i even need that
 router.post('/register', function(req, res) {
 
   let hashedPassword = bcrypt.hashSync(req.body.password, 8);
@@ -23,10 +24,10 @@ router.post('/register', function(req, res) {
   function (err, user) {
     if (err) return res.status(500).send('There was a problem registering the user.');
     // create a token
-    let token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, {
+    let token = jwt.sign({ id: user._id, pidor: 'Timur' }, process.env.SECRET_KEY, {
       expiresIn: 43200 // expires in 12 hours
     });
-    res.status(200).send({ auth: true, token: token, pidor: 'Timur' });
+    res.status(200).send({ auth: true, token: token });
   });
 });
 
@@ -49,11 +50,11 @@ router.post('/login', function (req, res) {
     let passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
     if (!passwordIsValid) return res.status(401).send({ auth: false, token: null });
 
-    let token = jwt.sign({ id: user.id, }, process.env.SECRET_KEY, {
+    let token = jwt.sign({ id: user.id, pidor: 'Timur' }, process.env.SECRET_KEY, {
       expiresIn: 43200 //expires in 12 hours
     });
 
-    res.status(200).send({ auth: true, token: token, pidor: "Timur" });
+    res.status(200).send({ auth: true, token: token });
   });
 });
 

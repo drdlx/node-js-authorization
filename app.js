@@ -8,9 +8,6 @@ app.get('/api', function(req, res){
     res.status(200).send('API works!');
 });
 
-/*const UserController = require('./user/UserController');
-app.use('/users', UserController);*/
-
 const AuthController = require('./auth/AuthController');
 app.use('/api/auth', AuthController);
 
