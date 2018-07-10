@@ -7,7 +7,6 @@ const User = require('../user/User');
 
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-//const config = require('../config');  //change it to a more secure way
 
 const VerifyToken = require('./VerifyToken');
 
