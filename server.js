@@ -17,8 +17,8 @@ const options = {
 
 app.use(require('helmet')());
 
-http.createServer(app).listen(process.env.HTTPPORT);
-const server = https.createServer(options, app).listen(process.env.HTTPSPORT);
+http.createServer(app).listen(http_port);
+const server = https.createServer(options, app).listen(https_port);
 
 /*http.createServer(function(req, res) {
   res.writeHead(301, { "Location": "https://" + req.headers['host'].replace(http_port, https_port) + req.url });
