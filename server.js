@@ -1,5 +1,5 @@
 const fs = require('fs');
-const app = require('./app');
+const {app} = require('./app');
 const http_port = process.env.PORT;
 const http = require('http');
 
