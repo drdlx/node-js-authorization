@@ -1,12 +1,16 @@
 module.exports = {
   apps : [{
     name      : 'API',
-    script    : 'server.js',
+    script    : 'app.js',
     env: {
-      NODE_ENV: 'development'
+      NODE_ENV: 'development',
+      PORT:'80',
+      PORT_HTTPS:'443'
     },
     env_production : {
-      NODE_ENV: 'production'
+      NODE_ENV: 'production',
+      PORT:'80',
+      PORT_HTTPS:'443'
     }
   }],
 
