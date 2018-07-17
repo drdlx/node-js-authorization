@@ -10,8 +10,8 @@ require('./db');
 global.__root = __dirname + '/';
 
 const options = {
-    key: fs.readFileSync('/etc/letsencrypt/live/authrecn.ml/fullchain.pem'),
-    cert: fs.readFileSync('/etc/letsencrypt/live/authrecn.ml/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/authrecn.ml/fullchain.pem'),
+    key: fs.readFileSync('/etc/letsencrypt/live/authrecn.ml/privkey.pem'),
   };
 //API status
 app.get('/api', function(req, res){
