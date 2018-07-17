@@ -7,8 +7,8 @@ const https = require('https');
 const https_port = process.env.PORT_HTTPS;
 
 const options = {
-  key: fs.readFileSync('key.pem'),
-  cert: fs.readFileSync('cert.pem'),
+  key: fs.readFileSync('/etc/letsencrypt/live/authrecn.ml/fullchain.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/authrecn.ml/privkey.pem'),
 };
 
 /*const server = https.createServer(options, app).listen(http_port, function() {
